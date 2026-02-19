@@ -22,15 +22,6 @@ app.use(cors({
 // Middleware
 app.use(express.json());
 
-// Connect to MongoDB and start server when ready
-(async () => {
-  await connectDB();
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
-})();
-
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
@@ -46,4 +37,11 @@ app.use(express.static(path.join(__dirname, "../frontend/dist")));
 //   res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
 // });
 
-// Start handled after DB connection
+// Connect to MongoDB and start server when ready
+(async () => {
+  await connectDB();
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+})();
